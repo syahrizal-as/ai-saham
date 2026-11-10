@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Panduan Presentasi: Dari Bingung Pilih Saham ke Membangun NadiBursa | Syahrizal Alisadikin</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+            serif: ['"Newsreader"', 'Georgia', 'serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg: #F8FAF9;
+      --surface: #FFFFFF;
+      --card-border: #E2E9E7;
+      --card-shadow: 0 1px 3px rgba(15, 35, 45, 0.03), 0 4px 14px -2px rgba(15, 35, 45, 0.04);
+      --ink: #192A32;
+      --ink-muted: #5E727D;
+      --accent: #0D827E;
+      --accent-hover: #0A6B68;
+      --accent-light: #EEF8F6;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--ink);
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #CFDAD8; border-radius: 9999px; }
+
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .card-smooth {
+      background: var(--surface);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      box-shadow: var(--card-shadow);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .card-smooth:hover {
+      border-color: #B2DDD8;
+      box-shadow: 0 4px 16px -2px rgba(13, 130, 126, 0.08), 0 8px 24px -4px rgba(15, 35, 45, 0.04);
+    }
+
+    .glass-header {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-color: var(--card-border);
+    }
+  </style>
+</head>
+
+<body class="antialiased min-h-screen text-slate-800">
+
+  <!-- ================= TOP STICKY HEADER & RESPONSIVE NAV ================= -->
+  <header class="sticky top-0 z-40 glass-header border-b">
+    
+    <!-- Top Row: Identity & Quick Modals -->
+    <div class="max-w-6xl mx-auto px-3 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-3">
+      
+      <!-- Brand & Speaker Info -->
+      <a href="#hero" class="flex items-center gap-2 sm:gap-2.5 min-w-0 group">
+        <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-teal-600 flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:scale-105 transition-transform flex-shrink-0">
+          ⚡
+        </div>
+        <div class="min-w-0">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="font-extrabold text-sm sm:text-base tracking-tight text-slate-900 truncate">NadiBursa</span>
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-teal-100 text-teal-800 whitespace-nowrap">AIClub × IPOT</span>
+          </div>
+          <p class="text-[10px] sm:text-[11px] text-slate-500 font-medium truncate hidden xs:block">Panduan Panggung · Syahrizal Alisadikin</p>
+        </div>
+      </a>
+
+      <!-- Quick Action Buttons -->
+      <div class="flex items-center gap-2 flex-shrink-0">
+        
+        <!-- Prioritas Utama: Nadi Akademi -->
+        <a href="https://nadibursa.my.id/belajar" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition-colors shadow-xs" title="Buka NadiBursa Academy">
+          <span>🎓</span>
+          <span>Nadi Akademi</span>
+          <span class="text-[10px] opacity-80 hidden xs:inline">↗</span>
+        </a>
+
+        <button onclick="openModal('modal-teleprompter')" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-teal-50 hover:bg-teal-100 border border-teal-200 text-teal-900 font-bold text-xs transition-colors shadow-xs" title="Naskah Pembuka Sesi">
+          <span>📜</span>
+          <span class="hidden sm:inline">Naskah</span>
+        </button>
+
+        <button onclick="openModal('modal-qa')" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors" title="Contekan Jawaban Q&A">
+          <span>🛡️</span>
+          <span class="hidden sm:inline">Q&A</span>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Secondary Sticky Track: Responsive Stage Pills (Scrollable Horizontal) -->
+    <div class="border-t border-slate-100 bg-white/80">
+      <div class="max-w-6xl mx-auto px-3 sm:px-6">
+        <nav class="flex items-center gap-1.5 py-2 overflow-x-auto no-scrollbar text-xs font-semibold text-slate-600">
+          <a href="#tahap-1" class="whitespace-nowrap px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-teal-700 transition-colors">
+            1. Awal Kenal
+          </a>
+          <a href="#tahap-2" class="whitespace-nowrap px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-teal-700 transition-colors">
+            2. Bingung & Boncos
+          </a>
+          <a href="#tahap-3" class="whitespace-nowrap px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-teal-700 transition-colors">
+            3. Ketemu Hermes AI
+          </a>
+          <a href="#tahap-4" class="whitespace-nowrap px-3 py-1.5 rounded-lg bg-amber-50 text-amber-900 border border-amber-300 font-bold hover:bg-amber-100 transition-colors flex items-center gap-1">
+            <span>⚡ 4. Praktek Prompt</span>
+          </a>
+          <a href="#tahap-5" class="whitespace-nowrap px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-teal-700 transition-colors">
+            5. Bikin NadiBursa
+          </a>
+          <a href="#tahap-6" class="whitespace-nowrap px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-teal-700 transition-colors">
+            6. Pelajaran & Closing
+          </a>
+        </nav>
+      </div>
+    </div>
+
+  </header>
+
+  <!-- ================= MAIN CONTENT CONTAINER ================= -->
+  <main class="max-w-5xl mx-auto px-3 sm:px-6 py-6 sm:py-8 space-y-8 sm:space-y-10">
+
+    <!-- HERO SECTION: KUTIPAN INTI & ROADMAP 6 TAHAP -->
+    <section id="hero" class="text-center pt-2 sm:pt-4 pb-2">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-teal-50 text-teal-800 border border-teal-200 mb-3 sm:mb-4">
+        <span>🎙️</span> Alur Presentasi · Storytelling Santai & Praktikal
+      </div>
+      <h1 class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        Dari Bingung Pilih Saham, Ketemu Hermes,<br class="hidden sm:inline"> Sampai Membangun NadiBursa
+      </h1>
+      <p class="serif text-base sm:text-xl text-slate-600 italic mt-3 max-w-2xl mx-auto font-normal px-2">
+        “Saya tidak menjadi lebih pintar memilih saham. Saya berhenti menebak, dan mulai membangun sistem yang bisa saya percaya.”
+      </p>
+
+      <!-- Roadmap 6 Tahap Lengkap (Responsive Grid 2/3/6 cols) -->
+      <div class="mt-6 sm:mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 text-xs font-bold text-slate-700">
+        <a href="#tahap-1" class="p-2.5 sm:p-3 rounded-xl bg-white border border-slate-200 hover:border-teal-400 hover:bg-teal-50/40 transition-all text-center">
+          <span class="block text-slate-400 text-[10px] uppercase font-semibold">Babak 1</span>
+          1. Awal Kenal
+        </a>
+        <a href="#tahap-2" class="p-2.5 sm:p-3 rounded-xl bg-white border border-slate-200 hover:border-teal-400 hover:bg-teal-50/40 transition-all text-center">
+          <span class="block text-slate-400 text-[10px] uppercase font-semibold">Babak 2</span>
+          2. Bingung & Boncos
+        </a>
+        <a href="#tahap-3" class="p-2.5 sm:p-3 rounded-xl bg-white border border-slate-200 hover:border-teal-400 hover:bg-teal-50/40 transition-all text-center">
+          <span class="block text-slate-400 text-[10px] uppercase font-semibold">Babak 3</span>
+          3. Ketemu Hermes
+        </a>
+        <a href="#tahap-4" class="p-2.5 sm:p-3 rounded-xl bg-amber-50 border border-amber-300 text-amber-900 hover:bg-amber-100 transition-all text-center shadow-xs">
+          <span class="block text-amber-700 text-[10px] uppercase font-bold">Praktek HP</span>
+          ⚡ 4. Live Prompt
+        </a>
+        <a href="#tahap-5" class="p-2.5 sm:p-3 rounded-xl bg-white border border-slate-200 hover:border-teal-400 hover:bg-teal-50/40 transition-all text-center">
+          <span class="block text-slate-400 text-[10px] uppercase font-semibold">Babak 5</span>
+          5. Bikin NadiBursa
+        </a>
+        <a href="#tahap-6" class="p-2.5 sm:p-3 rounded-xl bg-white border border-slate-200 hover:border-teal-400 hover:bg-teal-50/40 transition-all text-center">
+          <span class="block text-slate-400 text-[10px] uppercase font-semibold">Babak 6</span>
+          6. 5 Pelajaran
+        </a>
+      </div>
+    </section>
+
+    <!-- ================= BABAK 1: AWAL MENGENAL SAHAM ================= -->
+    <section id="tahap-1" class="scroll-mt-28">
+      <div class="card-smooth p-5 sm:p-7 border-l-4 border-l-teal-600">
+        
+        <div class="flex items-center gap-2 mb-4">
+          <span class="w-7 h-7 rounded-lg bg-teal-100 text-teal-800 font-bold text-xs flex items-center justify-center flex-shrink-0">1</span>
+          <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">Awal Mengenal Saham (Fase Ikut-ikutan)</h2>
+        </div>
+
+        <div class="grid  gap-5 sm:gap-6 items-start">
+          
+          <!-- Poin Pembahasan -->
+          <div class="space-y-3">
+            <div class="text-xs font-bold uppercase tracking-wider text-slate-400">Poin Pembahasan:</div>
+            <ul class="space-y-2.5 text-xs sm:text-sm text-slate-700 leading-relaxed list-disc pl-5">
+              <li><strong>Masuk Tanpa Fondasi:</strong> Pertama kali masuk ke pasar saham bukan karena paham ekonomi atau laporan keuangan, melainkan rasa penasaran dan ajakan teman.</li>
+              <li><strong>Beli Berdasarkan Rekomendasi:</strong> Membeli saham hanya karena sedang ramai dibicarakan di grup Telegram, Twitter (X), atau rekomendasi figur medsos.</li>
+              <li><strong>Hasil Acak & Rentan Nyangkut:</strong> Sesekali merasakan cuan kecil, namun sering kali tersangkut berbulan-bulan tanpa kejelasan kapan harus keluar (cut loss).</li>
+              <!-- <li><strong>Posisi IPOT:</strong> Sekuritas terpercaya tempat membuka RDN dan mengeksekusi order transaksi, bukan mesin riset data pribadi.</li> -->
+            </ul>
+          </div>  
+
+          
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= BABAK 2: BINGUNG & BONCOS ================= -->
+    <section id="tahap-2" class="scroll-mt-28">
+      <div class="card-smooth p-5 sm:p-7 border-l-4 border-l-sky-600">
+        
+        <div class="flex items-center gap-2 mb-4">
+          <span class="w-7 h-7 rounded-lg bg-sky-100 text-sky-800 font-bold text-xs flex items-center justify-center flex-shrink-0">2</span>
+          <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">Makin Belajar, Makin Bingung & Boncos</h2>
+        </div>
+
+        <div class="grid md:grid-cols-[1.5fr_1fr] gap-5 sm:gap-6 items-start">
+          
+          <div class="space-y-3">
+            <div class="text-xs font-bold uppercase tracking-wider text-slate-400">3 Jebakan Nyata yang Dialami:</div>
+            
+            <div class="space-y-2 text-xs sm:text-sm text-slate-700">
+              <div class="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                <strong class="text-slate-900 block mb-0.5">1. Membeli Rekomendasi Tanpa Paham Logikanya</strong>
+                Hanya menerima nama saham (ticker) tanpa tahu alasan di baliknya. Saat untung tidak tahu faktor pemicunya, dan saat rugi tidak bisa mengevaluasi apa yang salah.
+              </div>
+              <div class="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                <strong class="text-slate-900 block mb-0.5">2. Terlalu Banyak Indikator (Noise)</strong>
+                Mempelajari MA, RSI, MACD, hingga bandarmology sekaligus. Indikator saling bertentangan sehingga memicu keraguan saat eksekusi.
+              </div>
+              <div class="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                <strong class="text-slate-900 block mb-0.5">3. Keputusan Berdasarkan Suasana Hati</strong>
+                Tanpa aturan tertulis, rasa takut (fear) dan keserakahan (greed) kerap disangka sebagai analisis objektif.
+              </div>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-sky-50/80 border border-sky-200 text-xs space-y-2.5">
+            <div class="font-bold text-sky-950 flex items-center gap-1.5">
+              <span>💡</span> Titik Balik Kesadaran:
+            </div>
+            <p class="text-sky-900 serif text-sm italic leading-relaxed">
+              “Masalah utama bukan kekurangan informasi atau berita. Masalahnya adalah ketiadaan <strong>sistem terstruktur yang dapat diuji dan diulang</strong>.”
+            </p>
+            <div class="pt-2 border-t border-sky-200/60 text-[11px] text-sky-800">
+              🖥️ <strong>Slide:</strong> Grafik harga saham dengan belasan indikator teknikal yang saling bertabrakan.
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= BABAK 3: KETEMU HERMES SAHAM ================= -->
+    <section id="tahap-3" class="scroll-mt-28">
+      <div class="card-smooth p-5 sm:p-7 border-l-4 border-l-indigo-600">
+        
+        <div class="flex items-center gap-2 mb-4">
+          <span class="w-7 h-7 rounded-lg bg-indigo-100 text-indigo-800 font-bold text-xs flex items-center justify-center flex-shrink-0">3</span>
+          <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">Titik Balik: Mengenal Hermes Saham & AI Agent</h2>
+        </div>
+
+        <p class="text-xs sm:text-sm text-slate-600 mb-4 leading-relaxed">
+          Di titik ini muncul paradigma <strong>Hermes Saham</strong>: AI difungsikan bukan sebagai peramal harga masa depan, melainkan sebagai <em>decision-support system</em> yang disiplin memverifikasi data dan membatasi risiko.
+        </p>
+
+        <!-- 4 Status Keputusan Hermes Saham -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 my-4 text-xs">
+          <div class="p-3 rounded-xl border border-amber-200 bg-amber-50/50">
+            <span class="font-extrabold text-amber-900 block text-sm">WATCH</span>
+            <span class="text-slate-600 mt-1 block leading-tight">Saham layak dipantau, namun trigger konfirmasi belum lengkap.</span>
+          </div>
+          <div class="p-3 rounded-xl border border-emerald-200 bg-emerald-50/50">
+            <span class="font-extrabold text-emerald-900 block text-sm">ENTER</span>
+            <span class="text-slate-600 mt-1 block leading-tight">Semua syarat lolos, level harga valid sesuai fraksi IDX.</span>
+          </div>
+          <div class="p-3 rounded-xl border border-sky-300 bg-sky-50/70">
+            <span class="font-extrabold text-sky-900 block text-sm">WAIT 🛡️</span>
+            <span class="text-slate-600 mt-1 block leading-tight"><strong>Anti-Chase Guard:</strong> Harga sudah extended/terlalu tinggi. Jangan kejar pucuk!</span>
+          </div>
+          <div class="p-3 rounded-xl border border-red-200 bg-red-50/50">
+            <span class="font-extrabold text-red-900 block text-sm">INVALID</span>
+            <span class="text-slate-600 mt-1 block leading-tight">Struktur batal atau batas risiko terlewati. Akui dan keluar.</span>
+          </div>
+        </div>
+
+        <!-- 2 Pilar Disiplin Hermes -->
+        <div class="grid sm:grid-cols-2 gap-3 mt-4 text-xs">
+          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+            <strong class="text-slate-900 block mb-1">1. No Signal is a Valid Outcome:</strong>
+            Sistem berani menyatakan <em>"Hari ini tidak ada setup yang layak beli"</em> daripada memaksakan rekomendasi spekulatif.
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+            <strong class="text-slate-900 block mb-1">2. Risk First (Hitung Risiko Terlebih Dahulu):</strong>
+            Sebelum membeli, tetapkan batas nominal rugi (misal Rp 500.000) dan sesuaikan fraksi resmi IDX guna menentukan jumlah lot yang terukur.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= BABAK 4: LAB PRAKTEK PROMPT (AUDIENS COBA DI HP) ================= -->
+    <section id="tahap-4" class="scroll-mt-28">
+      <div class="card-smooth p-5 sm:p-7 border-2 border-amber-400 bg-gradient-to-br from-amber-50/30 via-white to-teal-50/20">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+          <div class="flex items-center gap-2">
+            <span class="w-7 h-7 rounded-lg bg-amber-500 text-white font-bold text-xs flex items-center justify-center flex-shrink-0">4</span>
+            <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">Lab Praktek: Live Prompting di Gemini / ChatGPT</h2>
+          </div>
+          <span class="text-xs px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 font-bold self-start sm:self-auto">
+            ⚡ Sesi Interaktif Audiens
+          </span>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-amber-100/80 border border-amber-300 text-xs text-amber-950 mb-5 font-medium leading-relaxed">
+          🎤 <strong>Panduan Interaktif ke Audiens:</strong>
+          “Buka ponsel masing-masing sekarang melalui browser ke <strong>gemini.google.com</strong> atau <strong>chatgpt.com</strong>. Kita buktikan langsung perbedaan antara cara bertanya yang memicu halusinasi dengan prompt evaluasi risiko terstruktur.”
+        </div>
+
+        <!-- Perbandingan 2 Model Prompt (Responsive Grid) -->
+        <div class="grid md:grid-cols-2 gap-4">
+          
+          <!-- Prompt Spekulatif (Salah) -->
+          <div class="p-4 rounded-xl border border-red-200 bg-white space-y-2.5 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-xs font-bold text-red-600 mb-1.5">
+                <span>❌ Pola Spekulatif (Tebak-tebakan)</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-red-100 font-semibold">Memicu Halusinasi</span>
+              </div>
+              <div class="p-3 rounded-lg bg-slate-50 font-mono text-xs text-slate-700 leading-relaxed border border-slate-200">
+                “Gemini/ChatGPT, saham apa yang minggu depan bakal naik tinggi? Kasih 3 rekomendasi terbaik dong.”
+              </div>
+            </div>
+            <p class="text-[11px] text-slate-500 pt-2 border-t border-slate-100">
+              <strong>Kelemahan:</strong> AI akan menjawab dengan nada percaya diri tanpa dasar data segar dan tanpa rencana proteksi modal.
+            </p>
+          </div>
+
+          <!-- Prompt Decision-Support (Benar) -->
+          <div class="p-4 rounded-xl border border-teal-300 bg-white space-y-2.5 shadow-xs flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-xs font-bold text-teal-700 mb-1.5">
+                <span>✅ Pola Decision-Support (Grounded)</span>
+                <button onclick="copyPrompt('prompt-praktek-hermes', this)" class="text-[10px] px-2 py-1 rounded bg-teal-600 text-white font-bold hover:bg-teal-700 transition-colors flex items-center gap-1 shadow-xs">
+                  <span>📋</span> Salin Prompt
+                </button>
+              </div>
+              <pre id="prompt-praktek-hermes" class="p-3 rounded-lg bg-teal-50/70 border border-teal-100 font-mono text-[11px] text-slate-800 whitespace-pre-wrap break-words leading-relaxed overflow-x-auto">Anda bertindak sebagai risk engine analisis saham IDX.
+Data saham:
+- Emiten: BBNI
+- Harga saat ini: Rp 5.200 (Fraksi IDX: Rp 25)
+- Support terdekat: Rp 5.050 | Rencana Stop Loss: Rp 5.000
+- Batas toleransi risiko: Maksimal Rp 500.000
+
+Tolong:
+1. Hitung jumlah lot aman berdasarkan batas risiko.
+2. Tentukan status apakah layak ENTER atau WAIT jika harga belum pullback ke area support.
+3. DILARANG membuat target harga spekulatif tanpa konfirmasi data!</pre>
+            </div>
+            <p class="text-[11px] text-teal-900 pt-2 border-t border-teal-100">
+              <strong>Kelebihan:</strong> AI bekerja dalam koridor matematis yang deterministik, mendahulukan proteksi modal sebelum keuntungan.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= BABAK 5: AKHIRNYA MEMBANGUN NADIBURSA & AKADEMI ================= -->
+    <section id="tahap-5" class="scroll-mt-28">
+      <div class="card-smooth p-5 sm:p-7 border-l-4 border-l-emerald-600 space-y-6">
+        
+        <!-- Header Babak 5 & Direct Action Buttons -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <span class="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-800 font-bold text-xs flex items-center justify-center flex-shrink-0">5</span>
+            <div>
+              <h2 class="text-lg sm:text-xl font-extrabold text-slate-900 leading-tight">Akhirnya Membuat NadiBursa &amp; Nadi Akademi</h2>
+              <p class="text-xs text-slate-500 font-medium mt-0.5">Fokus Utama: Edukasi Kuantitatif Terstruktur &amp; Tools Pendukung Riset</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 flex-wrap self-start sm:self-auto">
+            <a href="https://nadibursa.my.id/belajar" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs transition-all shadow-sm group">
+              <span>🎓 Buka Akademi: nadibursa.my.id/belajar</span>
+              <span class="group-hover:translate-x-0.5 transition-transform">↗</span>
+            </a>
+            <a href="https://nadibursa.my.id" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors">
+              <span>🌐 Web App</span>
+              <span class="text-[10px] text-slate-400">↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Narasi Pembuka: Mengapa Edukasi Menjadi Prioritas Terbesar? -->
+        <div class="p-4 rounded-xl bg-emerald-50/50 border border-emerald-200/80 text-xs text-emerald-950 leading-relaxed space-y-1.5">
+          <div class="font-bold text-sm flex items-center gap-1.5 text-emerald-900">
+            <span>💡</span> Titik Temu Masalah: Bukan Kurang Sinyal, Tapi Kurang Proses Belajar
+          </div>
+          <p class="text-slate-700 leading-relaxed">
+            “Masalah utama teman-teman pemula bukan karena kekurangan sinyal atau aplikasi yang kurang rumit. Masalahnya adalah ketiadaan <strong>kurikulum terstruktur</strong> untuk membangun proses analisis sendiri. Karena itulah, produk yang saya bangun dan utamakan pertama kali untuk publik adalah <strong>NadiBursa Academy</strong>.”
+          </p>
+        </div>
+
+        <!-- ================= KARTU UTAMA: NADIBURSA ACADEMY (/belajar) ================= -->
+        <div class="p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-emerald-50/60 via-white to-teal-50/30 border-2 border-emerald-500/40 shadow-xs space-y-5">
+          
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-emerald-100">
+            <div>
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 font-mono text-[10px] font-bold uppercase mb-1">
+                ⭐ Prioritas Utama · Bebas Akses Publik
+              </div>
+              <h3 class="text-base sm:text-lg font-extrabold text-slate-900 flex items-center gap-2">
+                <span>📚</span> NadiBursa Academy (nadibursa.my.id/belajar)
+              </h3>
+              <p class="text-xs text-slate-600 mt-0.5">
+                Kurikulum bertingkat: dari dasar bursa, laporan keuangan, teknikal kuantitatif, hingga membaca jejak aliran dana besar (broker summary). Objektif, analitis, tanpa bias spekulasi atau ajakan beli.
+              </p>
+            </div>
+            
+            <a href="https://nadibursa.my.id/belajar" target="_blank" rel="noopener noreferrer" class="self-start sm:self-auto px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs whitespace-nowrap shadow-xs">
+              Mulai Jalur 1 ↗
+            </a>
+          </div>
+
+          <!-- 3 Nilai Integritas Akademi -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+            <div class="p-2.5 rounded-lg bg-white border border-emerald-200/80">
+              <strong class="text-emerald-900 block font-bold">100% Gratis &amp; Terbuka</strong>
+              <span class="text-slate-500 text-[11px]">Bebas biaya, tidak dipungut jutaan rupiah seperti kelas seminar umum.</span>
+            </div>
+            <div class="p-2.5 rounded-lg bg-white border border-emerald-200/80">
+              <strong class="text-emerald-900 block font-bold">Tersimpan di Browser Lokal</strong>
+              <span class="text-slate-500 text-[11px]">Progress materi tersimpan otomatis di perangkat tanpa wajib login.</span>
+            </div>
+            <div class="p-2.5 rounded-lg bg-white border border-emerald-200/80">
+              <strong class="text-emerald-900 block font-bold">Bukan Funnel Sinyal VIP</strong>
+              <span class="text-slate-500 text-[11px]">Murni edukasi mandiri agar investor tidak ketergantungan sinyal pihak lain.</span>
+            </div>
+          </div>
+
+          <!-- 8 Jalur Belajar Terstruktur (Bite-sized Grid) -->
+          <div class="space-y-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-500 block">8 Jalur Belajar Terstruktur di NadiBursa Academy:</span>
+            
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-2.5 text-xs">
+              
+              <!-- Jalur 1 -->
+              <div class="p-3 rounded-xl bg-white border border-slate-200 hover:border-emerald-400 transition-colors">
+                <div class="flex items-center justify-between text-[10px] font-bold text-emerald-700 mb-1">
+                  <span>JALUR #1</span>
+                  <span class="px-1.5 py-0.2 rounded bg-emerald-50">Pemula</span>
+                </div>
+                <strong class="text-slate-900 block text-xs leading-snug">Belajar Saham dari Nol</strong>
+                <p class="text-slate-500 text-[11px] mt-1 leading-tight"><em>“Jangan Cuma Ikut Orang — Bangun Proses Analisis Sendiri.”</em> Konsep dasar ekuitas, dividen, &amp; spektrum risiko.</p>
+              </div>
+
+              <!-- Jalur 2 -->
+              <div class="p-3 rounded-xl bg-white border border-slate-200 hover:border-emerald-400 transition-colors">
+                <div class="flex items-center justify-between text-[10px] font-bold text-emerald-700 mb-1">
+                  <span>JALUR #2</span>
+                  <span class="px-1.5 py-0.2 rounded bg-emerald-50">Pemula</span>
+                </div>
+                <strong class="text-slate-900 block text-xs leading-snug">Analisis Perusahaan</strong>
+                <p class="text-slate-500 text-[11px] mt-1 leading-tight">Analisis fundamental, bedah laporan keuangan, utang emiten, &amp; rasio valuasi kunci.</p>
+              </div>
+
+              <!-- Jalur 3 -->
+              <div class="p-3 rounded-xl bg-white border border-slate-200 hover:border-emerald-400 transition-colors">
+                <div class="flex items-center justify-between text-[10px] font-bold text-emerald-700 mb-1">
+                  <span>JALUR #3</span>
+                  <span class="px-1.5 py-0.2 rounded bg-emerald-50">Pemula</span>
+                </div>
+                <strong class="text-slate-900 block text-xs leading-snug">Memahami NadiBursa</strong>
+                <p class="text-slate-500 text-[11px] mt-1 leading-tight">Kombinasi data bursa, screening kuantitatif, market flow, AI Analyst, &amp; manajemen risiko.</p>
+              </div>
+
+              <!-- Jalur 4 -->
+              <div class="p-3 rounded-xl bg-white border border-slate-200 hover:border-emerald-400 transition-colors">
+                <div class="flex items-center justify-between text-[10px] font-bold text-sky-700 mb-1">
+                  <span>JALUR #4</span>
+                  <span class="px-1.5 py-0.2 rounded bg-sky-50">Menengah</span>
+                </div>
+                <strong class="text-slate-900 block text-xs leading-snug">Dasar Broker Summary</strong>
+                <p class="text-slate-500 text-[11px] mt-1 leading-tight">Aliran transaksi, konsentrasi kepemilikan, realitas serta batasan objektif broker flow.</p>
+              </div>
+
+              <!-- Jalur 5 -->
+              <div class="p-3 rounded-xl bg-white border border-slate-200 hover:border-emerald-400 transition-colors">
+                <div class="flex items-center justify-between text-[10px] font-bold text-sky-700 mb-1">
+                  <span>JALUR #5</span>
+                  <span class="px-1.5 py-0.2 rounded bg-sky-50">Menengah</span>
+                </div>
+                <strong class="text-slate-900 block text-xs leading-snug">Screening ke Portofolio</strong>
+                <p class="text-slate-500 text-[11px] mt-1 leading-tight">Trigger entry terukur, take profit/stop loss struktural, trailing stop, &amp; position sizing.</p>
+              </div>
+
+              <!-- Jalur 6 -->
+              <div class="p-3 rounded-xl bg-white border border-slate-200 hover:border-emerald-400 transition-colors">
+                <div class="flex items-center justify-between text-[10px] font-bold text-sky-700 mb-1">
+                  <span>JALUR #6</span>
+                  <span class="px-1.5 py-0.2 rounded bg-sky-50">Menengah</span>
+                </div>
+                <strong class="text-slate-900 block text-xs leading-snug">Membaca Jejak Uang Besar</strong>
+                <p class="text-slate-500 text-[11px] mt-1 leading-tight">Psikologi pasar, order book, market structure, &amp; dinamika aliran dana institusi.</p>
+              </div>
+
+              <!-- Jalur 7 -->
+              <div class="p-3 rounded-xl bg-white border border-slate-200 hover:border-emerald-400 transition-colors">
+                <div class="flex items-center justify-between text-[10px] font-bold text-emerald-700 mb-1">
+                  <span>JALUR #7</span>
+                  <span class="px-1.5 py-0.2 rounded bg-emerald-50">Pemula</span>
+                </div>
+                <strong class="text-slate-900 block text-xs leading-snug">Memilih Reksa Dana</strong>
+                <p class="text-slate-500 text-[11px] mt-1 leading-tight">Tujuan keuangan, checklist analisis risiko, biaya manajer investasi, &amp; prospektus.</p>
+              </div>
+
+              <!-- Jalur 8 -->
+              <div class="p-3 rounded-xl bg-white border border-slate-200 hover:border-emerald-400 transition-colors">
+                <div class="flex items-center justify-between text-[10px] font-bold text-purple-700 mb-1">
+                  <span>JALUR #8</span>
+                  <span class="px-1.5 py-0.2 rounded bg-purple-50">Penting</span>
+                </div>
+                <strong class="text-slate-900 block text-xs leading-snug">Psikologi &amp; Disiplin</strong>
+                <p class="text-slate-500 text-[11px] mt-1 leading-tight">Cara kerja pikiran, bias kognitif, mengatasi fear/greed, &amp; mengelola loss aversion.</p>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ================= KARTU PENDUKUNG: ALAT RISET KUANTITATIF (nadibursa.my.id) ================= -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Tools Pendukung Riset (Lab Praktek Teori di nadibursa.my.id):</span>
+            <span class="text-[11px] text-slate-500">Mempraktekkan Analisis Secara Nyata</span>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 text-xs">
+            
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="text-base block mb-1">🎯</span>
+              <strong class="text-slate-900 block leading-tight">Pullback Hunter</strong>
+              <span class="text-slate-500 text-[10px] block mt-1 leading-tight">Deteksi koreksi sehat saham uptrend dekat VWAP/Support.</span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="text-base block mb-1">⚡</span>
+              <strong class="text-slate-900 block leading-tight">Formula Screener</strong>
+              <span class="text-slate-500 text-[10px] block mt-1 leading-tight">Filter kuantitatif 800+ saham IDX bebas emosi.</span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="text-base block mb-1">🗺️</span>
+              <strong class="text-slate-900 block leading-tight">Treemap Heatmap</strong>
+              <span class="text-slate-500 text-[10px] block mt-1 leading-tight">Peta visual 420+ emiten IHSG per sektor real-time.</span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="text-base block mb-1">🌊</span>
+              <strong class="text-slate-900 block leading-tight">Market Flow</strong>
+              <span class="text-slate-500 text-[10px] block mt-1 leading-tight">Lacak akumulasi &amp; distribusi bandar secara objektif.</span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="text-base block mb-1">🏢</span>
+              <strong class="text-slate-900 block leading-tight">Konglomerasi</strong>
+              <span class="text-slate-500 text-[10px] block mt-1 leading-tight">Peta grup bisnis Barito, Astra, Salim, Djarum, dll.</span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="text-base block mb-1">🤖</span>
+              <strong class="text-slate-900 block leading-tight">AI &amp; Telegram Bot</strong>
+              <span class="text-slate-500 text-[10px] block mt-1 leading-tight">Asisten riset grounded 24/7 di web &amp; @nadi_bursa_bot.</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ================= PANDUAN DEMO PANGGUNG: UTAMAKAN /belajar ================= -->
+        <div class="p-4 rounded-xl bg-teal-50/80 border border-teal-200 text-xs space-y-2.5">
+          <div class="font-bold text-teal-950 flex items-center justify-between flex-wrap gap-1">
+            <span class="flex items-center gap-1.5">
+              <span>🖥️</span> Panduan Demo di Layar Proyektor (Fokus Utama ke nadibursa.my.id/belajar):
+            </span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-teal-200 text-teal-900 font-bold">Ajak Audiens Buka di HP</span>
+          </div>
+          <div class="grid sm:grid-cols-3 gap-2.5 text-slate-700">
+            <div class="p-3 rounded-lg bg-white border border-teal-100 space-y-1">
+              <strong class="text-slate-900 block font-bold">Langkah 1: Tampilkan Halaman /belajar</strong>
+              <p class="text-slate-500 text-[11px] leading-relaxed">Buka <strong>nadibursa.my.id/belajar</strong> di proyektor. Ajak audiens membuka di browser HP masing-masing tanpa harus daftar atau bayar.</p>
+            </div>
+            <div class="p-3 rounded-lg bg-white border border-teal-100 space-y-1">
+              <strong class="text-slate-900 block font-bold">Langkah 2: Soroti Jalur 1 &amp; Jalur 8</strong>
+              <p class="text-slate-500 text-[11px] leading-relaxed">Buka Jalur 1 (<em>"Jangan Cuma Ikut Orang"</em>) dan Jalur 8 (<em>"Psikologi Disiplin"</em>). Tunjukkan cara mengatasi FOMO dan keraguan eksekusi.</p>
+            </div>
+            <div class="p-3 rounded-lg bg-white border border-teal-100 space-y-1">
+              <strong class="text-slate-900 block font-bold">Langkah 3: Sambungkan ke Tools Praktek</strong>
+              <p class="text-slate-500 text-[11px] leading-relaxed">Dari teori di Akademi, tunjukkan bagaimana tools Pullback Hunter &amp; AI Bot digunakan untuk mengevaluasi saham nyata di bursa.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= BABAK 6: PELAJARAN & CLOSING ================= -->
+    <section id="tahap-6" class="scroll-mt-28 pb-10">
+      <div class="card-smooth p-5 sm:p-7 border-l-4 border-l-purple-600 bg-gradient-to-br from-white via-slate-50 to-purple-50/20">
+        
+        <div class="flex items-center gap-2 mb-4">
+          <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-800 font-bold text-xs flex items-center justify-center flex-shrink-0">6</span>
+          <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">5 Pelajaran Builder & Penutup</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6 items-center">
+          
+          <div class="space-y-2 text-xs sm:text-sm text-slate-700">
+            <div class="flex items-start gap-2.5 p-2 rounded-lg bg-white/70 border border-slate-100">
+              <span class="text-teal-700 font-extrabold">1.</span>
+              <span><strong>Mulai Dari Kebutuhan Riil:</strong> Memecahkan masalah nyata sendiri adalah fondasi produk yang paling kokoh.</span>
+            </div>
+            <div class="flex items-start gap-2.5 p-2 rounded-lg bg-white/70 border border-slate-100">
+              <span class="text-teal-700 font-extrabold">2.</span>
+              <span><strong>Bangun Sistem, Bukan Ramalan:</strong> Prediksi harga cepat kadaluwarsa, namun sistem berdisiplin tinggi dapat digunakan secara berulang.</span>
+            </div>
+            <div class="flex items-start gap-2.5 p-2 rounded-lg bg-white/70 border border-slate-100">
+              <span class="text-teal-700 font-extrabold">3.</span>
+              <span><strong>Kualitas Data Sebelum Algoritma:</strong> AI canggih akan menghasilkan kesimpulan keliru bila data masukannya tidak terverifikasi.</span>
+            </div>
+            <div class="flex items-start gap-2.5 p-2 rounded-lg bg-white/70 border border-slate-100">
+              <span class="text-teal-700 font-extrabold">4.</span>
+              <span><strong>Transparansi Batasan Sistem:</strong> Berani menyatakan "belum ada data" menumbuhkan kepercayaan jangka panjang.</span>
+            </div>
+            <div class="flex items-start gap-2.5 p-2 rounded-lg bg-white/70 border border-slate-100">
+              <span class="text-teal-700 font-extrabold">5.</span>
+              <span><strong>AI Sebagai Pengungkit Eksekusi:</strong> AI mempercepat pembuatan purwarupa dan kalkulasi, namun keputusan tetap di tangan manusia.</span>
+            </div>
+          </div>
+
+          <!-- Closing Card & Call to Action -->
+          <div class="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200 text-center shadow-xs space-y-3">
+            <span class="text-xs font-bold text-teal-700 uppercase tracking-wider block">Kutipan Penutup Sesi</span>
+            <blockquote class="serif text-lg sm:text-xl font-bold text-slate-900 italic leading-snug">
+              “Saya tidak menjadi lebih pintar memilih saham. Saya berhenti menebak.”
+            </blockquote>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Tutup sesi dengan ajakan nyata: Ajak seluruh audiens membuka dan mem-bookmark <strong class="text-emerald-800">nadibursa.my.id/belajar</strong> untuk mulai belajar mandiri dari Jalur 1 tanpa perlu membayar seminar jutaan rupiah.
+            </p>
+            <div class="pt-2 flex flex-wrap justify-center gap-2">
+              <a href="https://nadibursa.my.id/belajar" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-emerald-600 text-white font-bold text-xs hover:bg-emerald-700 transition-colors shadow-xs inline-flex items-center gap-1">
+                <span>🎓</span>
+                <span>Buka nadibursa.my.id/belajar</span>
+                <span>↗</span>
+              </a>
+              <button onclick="openModal('modal-qa')" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors">
+                Contekan Q&amp;A
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= MODAL: TELEPROMPTER NASKAH PEMBUKA ================= -->
+  <div id="modal-teleprompter" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-white rounded-2xl max-w-2xl w-full p-5 sm:p-8 shadow-2xl border border-slate-200 flex flex-col max-h-[90vh]">
+      
+      <div class="flex items-center justify-between pb-3 sm:pb-4 border-b border-slate-100 flex-shrink-0">
+        <h3 class="font-extrabold text-sm sm:text-base text-slate-900 flex items-center gap-2">
+          <span>📜</span> Naskah Pembuka Sesi
+        </h3>
+        <button onclick="closeModal('modal-teleprompter')" class="text-slate-400 hover:text-slate-600 font-bold text-lg p-1">✕</button>
+      </div>
+
+      <div class="py-4 sm:py-6 serif text-base sm:text-xl text-slate-800 leading-relaxed space-y-3 overflow-y-auto" id="teleprompter-text">
+        <p>“Saya mulai dari posisi yang mungkin sama dengan sebagian besar rekan-rekan di sini: <strong class="text-teal-800">tidak tahu pasti harus memilih saham apa.</strong>”</p>
+        <p>“Pernah mencoba mengikuti rekomendasi grup, membaca berita pasar setiap pagi, hingga mempelajari belasan indikator teknikal. Hasilnya? Bukan bertambah tenang, justru semakin ragu dan overthinking saat bertransaksi.”</p>
+        <p>“Sampai pada kesimpulan penting: masalah utamanya bukan kekurangan informasi. <strong class="text-teal-800">Masalahnya adalah ketiadaan sistem terukur yang bisa dipercaya dan diulang secara konsisten.</strong>”</p>
+        <p>“Hari ini saya tidak membagikan tips saham apa yang harus dibeli. Saya akan berbagi bagaimana saya berhenti menebak, mengajak rekan-rekan mencoba prompt terstruktur di ponsel masing-masing, dan melihat apa yang bisa kita bangun bersama.”</p>
+        <p class="font-semibold text-teal-800">“Jika setelah sesi ini rekan-rekan menjadi lebih kritis terhadap angka-angka di media sosial yang tidak jelas sumber asalnya, maka sesi ini telah mencapai tujuannya.”</p>
+      </div>
+
+      <div class="flex items-center justify-between pt-3 sm:pt-4 border-t border-slate-100 text-xs flex-shrink-0">
+        <span class="text-slate-500 font-mono text-[11px] sm:text-xs">~150 kata · Naskah Inti</span>
+        <div class="flex items-center gap-2">
+          <button onclick="copyText('teleprompter-text', this)" class="px-3 sm:px-4 py-2 rounded-lg bg-teal-600 text-white font-bold hover:bg-teal-700 transition-colors shadow-xs">
+            Salin Naskah
+          </button>
+          <button onclick="closeModal('modal-teleprompter')" class="px-3 sm:px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold transition-colors">
+            Tutup
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= MODAL: CONTEKAN Q&A AMAN ================= -->
+  <div id="modal-qa" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-white rounded-2xl max-w-3xl w-full p-5 sm:p-8 shadow-2xl border border-slate-200 flex flex-col max-h-[90vh]">
+      
+      <div class="flex items-center justify-between pb-3 sm:pb-4 border-b border-slate-100 flex-shrink-0">
+        <div>
+          <h3 class="font-extrabold text-sm sm:text-base text-slate-900 flex items-center gap-2">
+            <span>🛡️</span> Contekan Jawaban Aman (Sesi Tanya Jawab)
+          </h3>
+          <p class="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">Panduan diplomatis saat muncul pertanyaan seputar rekomendasi saham atau akurasi prediksi</p>
+        </div>
+        <button onclick="closeModal('modal-qa')" class="text-slate-400 hover:text-slate-600 font-bold text-lg p-1">✕</button>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-3 py-4 text-xs overflow-y-auto">
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+          <div class="font-bold text-slate-900 mb-1">❓ “Saham apa yang prospektif dibeli saat ini?”</div>
+          <div class="serif text-teal-900 italic bg-white p-2.5 rounded border border-teal-100 leading-relaxed">
+            “Saya tidak memberikan rekomendasi beli atau jual emiten tertentu. Fokus saya adalah menunjukkan cara memverifikasi data kepemilikan dan menyusun batasan risiko sendiri.”
+          </div>
+        </div>
+
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+          <div class="font-bold text-slate-900 mb-1">❓ “Berapa persen tingkat akurasi AI-nya?”</div>
+          <div class="serif text-teal-900 italic bg-white p-2.5 rounded border border-teal-100 leading-relaxed">
+            “Sistem ini tidak dirancang memprediksi arah pergerakan harga di masa depan, melainkan sebagai mesin audit data faktual dan kalkulator risiko.”
+          </div>
+        </div>
+
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+          <div class="font-bold text-slate-900 mb-1">❓ “Apa perbedaan NadiBursa dengan IPOT?”</div>
+          <div class="serif text-teal-900 italic bg-white p-2.5 rounded border border-teal-100 leading-relaxed">
+            “IPOT adalah sekuritas tempat membuka RDN dan mengeksekusi order transaksi. NadiBursa (nadibursa.my.id) adalah platform riset independen (Pullback Radar, Screener Kuantitatif, Market Flow, Treemap Heatmap, hingga AI Analyst 24/7) untuk membantu menyusun keputusan yang objektif sebelum membeli di sekuritas.”
+          </div>
+        </div>
+
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+          <div class="font-bold text-slate-900 mb-1">❓ “Apakah data yang ditampilkan real-time per detik?”</div>
+          <div class="serif text-teal-900 italic bg-white p-2.5 rounded border border-teal-100 leading-relaxed">
+            “Data kepemilikan saham &gt;1% mengacu pada laporan berkala resmi kustodian KSEI. Kami sengaja tidak menampilkan estimasi yang belum tervalidasi.”
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-slate-100 text-right flex-shrink-0">
+        <button onclick="closeModal('modal-qa')" class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors">
+          Tutup
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="copy-toast" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-4 py-2.5 rounded-xl shadow-xl text-xs font-semibold flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-200 pointer-events-none">
+    <span>✓ Teks berhasil disalin ke clipboard!</span>
+  </div>
+
+  <!-- ================= SCRIPTS ================= -->
+  <script>
+    // Modal Helpers
+    function openModal(id) {
+      document.getElementById(id).classList.remove('hidden');
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+
+    // Copy Toast Helper
+    function copyPrompt(elementId, btn) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      navigator.clipboard.writeText(el.innerText || el.textContent).then(() => {
+        showToast("Prompt berhasil disalin! Siap ditempel di Gemini / ChatGPT.");
+      });
+    }
+
+    function copyText(elementId, btn) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      navigator.clipboard.writeText(el.innerText || el.textContent).then(() => {
+        showToast("Naskah berhasil disalin!");
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('copy-toast');
+      toast.querySelector('span').textContent = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
